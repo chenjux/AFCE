@@ -1,0 +1,11 @@
+question_id,question,llm_answer,confidence,correct_answer,is_correct,model,timestamp
+Q1,"The quantum efficiency of a photon detector is 0.1. If 100 photons are sent into the detector, one after the other, the detector will detect photons",B,0.9,B,True,gpt-4o,2025-04-07 20:06:52
+Q2,"Under certain conditions, a beam of electrons impinging on a crystal surface will diffract and a scattering pattern of the beam can be obtained. What is the approximate kinetic energy of the electrons needed in order to see the pattern? (Assume the lattice spacing of the crystal to be 0.4 nm.)",D,0.85,C,False,gpt-4o,2025-04-07 20:06:52
+Q3,"A uniform solid disk starts from rest and rolls down an inclined plane without slipping. After some time, what fraction of the disk’s total kinetic energy is rotational kinetic energy?",B,0.9,B,True,gpt-4o,2025-04-07 20:06:52
+Q4,"By definition, the electric displacement current through a surface S is proportional to the",D,0.95,D,True,gpt-4o,2025-04-07 20:06:52
+Q5,"The driver of a police car hears an echo of the car’s siren from a wall toward which the car is moving with a speed of 3.5 m/s. If the speed of sound is 350 m/s and the frequency of the siren is 600 Hz, the driver hears the echo at a frequency nearest to which of the following?",D,0.9,D,True,gpt-4o,2025-04-07 20:06:52
+Q6,"A particle decays in 2.0 ms in its rest frame. If the same particle moves at v=0.60c in the lab frame, how far will it travel in the lab before decaying?",B,0.9,D,False,gpt-4o,2025-04-07 20:06:52
+Q7,A rod measures 1.00 m in its rest system. How fast must an observer move parallel to the rod to measure its length to be 0.80 m?,B,0.95,B,True,gpt-4o,2025-04-07 20:06:52
+Q8,"An organ pipe, closed at one end and open at the other, is designed to have a fundamental frequency of C (131 Hz). What is the frequency of the next higher harmonic for this pipe?",D,0.9,D,True,gpt-4o,2025-04-07 20:06:52
+Q9,The rest mass of a particle with total energy 5.0 GeV and momentum 4.9 GeV/c is approximately,A,0.9,D,False,gpt-4o,2025-04-07 20:06:52
+Q10,"If the total energy of a particle of mass m is equal to twice its rest energy, then the magnitude of the particle’s relativistic momentum is",D,0.9,D,True,gpt-4o,2025-04-07 20:06:52

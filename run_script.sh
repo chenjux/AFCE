@@ -1,34 +1,35 @@
-SCRIPT="AFCE.py"  # 默认脚本
+#!/bin/bash
 
+# === Parse command-line arguments ===
 while [[ $# -gt 0 ]]; do
     case "$1" in
-        --script)
-            shift
-            SCRIPT="$1"
-            ;;
         --datasets)
             shift
             DATASETS=($(echo "$1" | tr ',' ' '))
             ;;
-        --questions)
+        -q|--questions)
             shift
             QUESTIONS="$1"
             ;;
-        --output)
+        --output_dir)
             shift
             OUTPUT="$1"
             ;;
-        --model)
+        -m|--model)
             shift
             MODEL="$1"
             ;;
-        --input)
+        --temperature)
             shift
-            INPUT="$1"
+            TEMPERATURE="$1"
             ;;
-        --type)
+        --num_samples)
             shift
-            TYPE="$1"
+            NUM_SAMPLES="$1"
+            ;;
+        --script)
+            shift
+            SCRIPT="$1"
             ;;
         *)
             echo "Unknown parameter: $1"
@@ -38,26 +39,40 @@ while [[ $# -gt 0 ]]; do
     shift
 done
 
+# === Print config summary ===
+echo "Running $SCRIPT"
+echo "Dataset(s): ${DATASETS[*]}"
+echo "Questions per quiz: $QUESTIONS"
+echo "Model: $MODEL"
+echo "Output directory: $OUTPUT"
+if [[ "$SCRIPT" == "sampling.py" ]]; then
+    echo "Temperature: $TEMPERATURE"
+    echo "Num Samples: $NUM_SAMPLES"
+fi
+echo "--------------------------------------"
+
+# === Script selection ===
 case "$SCRIPT" in
-    "AFCE.py")
-        python3 AFCE.py \
+    "AFCE.py"|"quiz_like.py")
+        python3 "$SCRIPT" \
             --datasets "${DATASETS[@]}" \
-            --questions_per_quiz "${QUESTIONS:-10}" \
-            --output_dir "${OUTPUT:-results}" \
-            --model "${MODEL:-gpt-4o}"
+            --questions_per_quiz "$QUESTIONS" \
+            --output_dir "$OUTPUT" \
+            --model "$MODEL"
         ;;
-    "quiz_like.py")
-        python3 quiz_like.py \
+    "top_k.py"|"vanilla.py")
+        python3 "$SCRIPT" \
             --datasets "${DATASETS[@]}" \
-            --questions_per_quiz "${QUESTIONS:-10}" \
-            --output_dir "${OUTPUT:-results}" \
-            --model "${MODEL:-gpt-4o}"
+            --output_dir "$OUTPUT" \
+            --model "$MODEL"
         ;;
-    "top_k.py")
-        python3 top_k.py \
-            --datasets "${DATASETS[@]}" \
-            --output_dir "${OUTPUT:-results}" \
-            --model "${MODEL:-gpt-4o}"
+    "sampling.py")
+        python3 "$SCRIPT" \
+            --input_paths "${DATASETS[@]}" \
+            --output_dir "$OUTPUT" \
+            --model "$MODEL" \
+            --temperature "$TEMPERATURE" \
+            --num_samples "$NUM_SAMPLES"
         ;;
     *)
         echo "Unknown script: $SCRIPT"

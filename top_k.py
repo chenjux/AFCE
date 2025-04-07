@@ -11,7 +11,7 @@ from tqdm import tqdm
 class TopKDataProcessor:
     """Processor for Top-k confidence estimation experiments."""
 
-    def __init__(self, dataset, model='llama3-70b-8192'):
+    def __init__(self, dataset, model):
         """
         Initialize the Top-k data processor.
 
@@ -156,7 +156,7 @@ def parse_arguments():
                         help='Datasets to process (default: all)')
     parser.add_argument('--model', default='gpt-4o',
                         help='LLM model to use')
-    parser.add_argument('--output', default='results',
+    parser.add_argument('--output_dir', default='results',
                         help='Output directory')
     return parser.parse_args()
 
@@ -226,12 +226,6 @@ def main():
             tqdm.write(f"✕ Processing failed [{ds_name}]: {str(e)}")
             continue
 
-    # Optional: Save combined results
-    if global_results:
-        combined_filename = f"topk_results_{timestamp}.csv"
-        combined_path = os.path.join(args.output_dir, combined_filename)
-        pd.concat(global_results, ignore_index=True).to_csv(combined_path, index=False)
-        tqdm.write(f"✓ Combined results saved: {combined_path}")
 
     print("\nProcessing completed successfully!")
 
