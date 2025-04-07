@@ -45,6 +45,8 @@ echo "Dataset(s): ${DATASETS[*]}"
 echo "Questions per quiz: $QUESTIONS"
 echo "Model: $MODEL"
 echo "Output directory: $OUTPUT"
+[[ -n "$EXPERTISE" ]] && echo "Expertise: $EXPERTISE"
+[[ -n "$SUBJECT" ]] && echo "Subject: $SUBJECT"
 if [[ "$SCRIPT" == "sampling.py" ]]; then
     echo "Temperature: $TEMPERATURE"
     echo "Num Samples: $NUM_SAMPLES"
@@ -73,6 +75,14 @@ case "$SCRIPT" in
             --model "$MODEL" \
             --temperature "$TEMPERATURE" \
             --num_samples "$NUM_SAMPLES"
+        ;;
+    "overplacement.py")
+        python3 "$SCRIPT" \
+            --datasets "${DATASETS[@]}" \
+            --output_dir "$OUTPUT" \
+            --model "$MODEL" \
+            ${EXPERTISE:+--expertise "$EXPERTISE"} \
+            ${SUBJECT:+--subject "$SUBJECT"}
         ;;
     *)
         echo "Unknown script: $SCRIPT"

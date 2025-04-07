@@ -5,16 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="afa89afc-fce5-4fa2-a91b-20b78aed63a0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/overplacement.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AFCE.py" beforeDir="false" afterPath="$PROJECT_DIR$/AFCE.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Result/college_physics_q10_20250407_0101.csv" beforeDir="false" afterPath="$PROJECT_DIR$/results/college_physics_q10_20250407_0101.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Result/college_physics_q10_20250407_1221.csv" beforeDir="false" afterPath="$PROJECT_DIR$/results/college_physics_q10_20250407_1221.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dataloader.py" beforeDir="false" afterPath="$PROJECT_DIR$/dataloader.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run_script.sh" beforeDir="false" afterPath="$PROJECT_DIR$/run_script.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sampling.py" beforeDir="false" afterPath="$PROJECT_DIR$/sampling.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/top_k.py" beforeDir="false" afterPath="$PROJECT_DIR$/top_k.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vanilla.py" beforeDir="false" afterPath="$PROJECT_DIR$/vanilla.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,7 +129,7 @@
       <updated>1743909808998</updated>
       <workItem from="1743909810103" duration="34383000" />
       <workItem from="1744014396369" duration="2403000" />
-      <workItem from="1744021548632" duration="6423000" />
+      <workItem from="1744021548632" duration="12931000" />
     </task>
     <servers />
   </component>
