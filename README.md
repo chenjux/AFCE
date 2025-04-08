@@ -1,5 +1,5 @@
 
-# AFCE: Exploring Psychological Insights to Address Overconfidence in LLMs Official
+# Do Language Models Mirror Human Confidence? Exploring Psychological Insights to Address Overconfidence in LLMs Official
 
 This repository contains the datasets and codes for our paper "Do Language Models Mirror Human Confidence? Exploring Psychological Insights to Address Overconfidence in LLMs"
 
