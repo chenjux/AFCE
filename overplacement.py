@@ -262,7 +262,7 @@ def main():
         if dataset_name not in dataset_map:
             print(f"Dataset {dataset_name} not found in dataset_map. Skipping.")
             continue
-        print(f"Running quiz-like overplacement experiment on {dataset_name}...")
+        print(f"Running overplacement experiment on {dataset_name}...")
         run_quizlike_pipeline(
             dataset_name,
             dataset_map[dataset_name],
