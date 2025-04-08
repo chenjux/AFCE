@@ -27,6 +27,18 @@ while [[ $# -gt 0 ]]; do
             shift
             NUM_SAMPLES="$1"
             ;;
+        --race)
+            shift
+            RACE="$1"
+            ;;
+        --age)
+            shift
+            AGE="$1"
+            ;;
+        --gender)
+            shift
+            GENDER="$1"
+            ;;
         --script)
             shift
             SCRIPT="$1"
@@ -45,6 +57,9 @@ echo "Dataset(s): ${DATASETS[*]}"
 echo "Questions per quiz: $QUESTIONS"
 echo "Model: $MODEL"
 echo "Output directory: $OUTPUT"
+[[ -n "$RACE" ]] && echo "Race: $RACE"
+[[ -n "$AGE" ]] && echo "Age: $AGE"
+[[ -n "$GENDER" ]] && echo "Gender: $GENDER"
 [[ -n "$EXPERTISE" ]] && echo "Expertise: $EXPERTISE"
 [[ -n "$SUBJECT" ]] && echo "Subject: $SUBJECT"
 if [[ "$SCRIPT" == "sampling.py" ]]; then
@@ -83,6 +98,15 @@ case "$SCRIPT" in
             --model "$MODEL" \
             ${EXPERTISE:+--expertise "$EXPERTISE"} \
             ${SUBJECT:+--subject "$SUBJECT"}
+        ;;
+    "demographic.py")
+        python3 "$SCRIPT" \
+            --datasets "${DATASETS[@]}" \
+            --output_dir "$OUTPUT" \
+            --model "$MODEL" \
+            --race "$RACE" \
+            --age "$AGE" \
+            --gender "$GENDER"
         ;;
     *)
         echo "Unknown script: $SCRIPT"
