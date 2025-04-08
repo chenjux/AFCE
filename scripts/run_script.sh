@@ -85,7 +85,7 @@ case "$SCRIPT" in
         ;;
     "sampling.py")
         python3 "$SCRIPT" \
-            --input_paths "${DATASETS[@]}" \
+            --datasets "${DATASETS[@]}" \
             --output_dir "$OUTPUT" \
             --model "$MODEL" \
             --temperature "$TEMPERATURE" \

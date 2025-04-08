@@ -165,8 +165,8 @@ def run_sampling_experiment(model_name, dataset_names='all', temperature=0.7, nu
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Run sampling-based confidence estimation.")
-    parser.add_argument('--datasets', nargs='+', default=['all'], help='List of dataset names or "all".')
-    parser.add_argument('--model', type=str, default='claude-3-sonnet-20240229', help='LLM model to use.')
+    parser.add_argument('--datasets', nargs='+', help='List of dataset names or "all".')
+    parser.add_argument('--model', type=str,  help='LLM model to use.')
     parser.add_argument('--temperature', type=float, default=0.7, help='Sampling temperature.')
     parser.add_argument('--num_samples', type=int, default=3, help='Number of samples to draw per question.')
     parser.add_argument('--output_dir', type=str, default='./results_sampling', help='Directory to save results.')
