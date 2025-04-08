@@ -3,7 +3,7 @@ import pandas as pd
 from datetime import datetime
 from utils.llm_api_utils import completion
 from tqdm import tqdm
-from utils.dataloader import load_dataset
+from utils.dataloader import load_datasets,load_dataset
 
 class SamplingDataProcessor:
     """Processor for confidence estimation using sampling-based strategy."""
@@ -116,47 +116,73 @@ class SamplingDataProcessor:
         })
 
 
-def run_experiment(input_paths, model, temperature, num_samples, output_dir):
+# sampling_runner.py
+
+import os
+from datetime import datetime
+import pandas as pd
+from tqdm import tqdm
+from utils.dataloader import load_datasets
+from sampling import SamplingDataProcessor
+
+def run_sampling_experiment(model_name, dataset_names='all', temperature=0.7, num_samples=3, output_dir='results_sampling', verbose=True):
+    dataset_map = load_datasets()
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M")
     os.makedirs(output_dir, exist_ok=True)
 
-    for path in input_paths:
-        dataset_name = os.path.splitext(os.path.basename(path))[0]
-        print(f"\n--- Running on dataset: {dataset_name} ---")
-        df = load_dataset(path)
+    if dataset_names == 'all':
+        selected_datasets = list(dataset_map.items())
+    else:
+        selected_datasets = [(name, dataset_map[name]) for name in dataset_names if name in dataset_map]
 
-        processor = SamplingDataProcessor(
-            dataset=df,
-            model=model,
-            temperature=temperature,
-            num_samples=num_samples
-        )
+    all_results = []
 
-        output_df = processor.dataframe
-        output_path = os.path.join(output_dir, f"{dataset_name}_{model}_sampling.csv")
-        output_df.to_csv(output_path, index=False)
-        print(f"Saved results to {output_path}")
+    for ds_name, dataset in tqdm(selected_datasets, desc=f"Model: {model_name}"):
+        try:
+            processor = SamplingDataProcessor(
+                dataset=dataset,
+                model=model_name,
+                temperature=temperature,
+                num_samples=num_samples
+            )
+
+            df = processor.dataframe
+            filename = f"{ds_name.replace(' ', '_')}_Sampling_{model_name}_{timestamp}.csv"
+            output_path = os.path.join(output_dir, filename)
+            df.to_csv(output_path, index=False)
+
+            if verbose:
+                tqdm.write(f"✓ Saved: {output_path}")
+
+            all_results.append(df)
+
+        except Exception as e:
+            tqdm.write(f"✕ Failed on {ds_name}: {e}")
+            continue
+
+    return all_results
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="Run sampling-based confidence estimation across datasets.")
-    parser.add_argument('--input_paths', nargs='+', required=True, help='List of CSV file paths.')
+    parser = argparse.ArgumentParser(description="Run sampling-based confidence estimation.")
+    parser.add_argument('--datasets', nargs='+', default=['all'], help='List of dataset names or "all".')
     parser.add_argument('--model', type=str, default='claude-3-sonnet-20240229', help='LLM model to use.')
     parser.add_argument('--temperature', type=float, default=0.7, help='Sampling temperature.')
     parser.add_argument('--num_samples', type=int, default=3, help='Number of samples to draw per question.')
-    parser.add_argument('--output_dir', type=str, default='./results', help='Directory to save results.')
+    parser.add_argument('--output_dir', type=str, default='./results_sampling', help='Directory to save results.')
     return parser.parse_args()
-
 
 def main():
     args = parse_args()
-    run_experiment(
-        input_paths=args.input_paths,
-        model=args.model,
+    dataset_names = args.datasets if 'all' not in args.datasets else 'all'
+
+    run_sampling_experiment(
+        model_name=args.model,
+        dataset_names=dataset_names,
         temperature=args.temperature,
         num_samples=args.num_samples,
         output_dir=args.output_dir
     )
-
 
 if __name__ == '__main__':
     main()
