@@ -1,5 +1,5 @@
-from llm_api_utils import completion
-from dataloader import load_dataset, load_datasets
+from utils.llm_api_utils import completion
+from utils.dataloader import load_dataset, load_datasets
 import pandas as pd
 import re, os, argparse
 from datetime import datetime

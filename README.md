@@ -41,6 +41,23 @@ For different tasks, the `runscript.sh` file contains instructions to run the ex
 1. Number of questions: You can adjust the number via the `questions_per_quiz` parameter in `AFCE.py`.
 2. Question order: You can change the order of questions by shuffling the dataset and then running `AFCE.py`.
 
+
+## 🔧 Usage
+
+Install dependencies before running:
+
+```bash
+pip install -r requirements.txt
+```
+
+To run the AFCE method on a dataset (e.g., MMLU) using GPT-4, use the following command:
+
+```bash
+python3 afce/AFCE.py \
+  --datasets "college_physics" \
+  --output_dir "results/" \
+  --model "gpt-4o"
+```
 ## Acknowledgement
 We thank the anonymous reviewers for their feedback on our paper.
 

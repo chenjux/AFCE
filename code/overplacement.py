@@ -2,8 +2,8 @@ import re
 import argparse
 import os
 import pandas as pd
-from dataloader import load_datasets
-from llm_api_utils import completion
+from utils.dataloader import load_datasets
+from utils.llm_api_utils import completion
 
 class OverplacementProcessor:
     def __init__(self, dataset, experiment_type=None, expertise=None, subject=None, model=None):

@@ -6,6 +6,17 @@
   <component name="ChangeListManager">
     <list default="true" id="afa89afc-fce5-4fa2-a91b-20b78aed63a0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AFCE.py" beforeDir="false" afterPath="$PROJECT_DIR$/code/AFCE.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataloader.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/demographic.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/llm_api_utils.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/overplacement.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz_like.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run_script.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sampling.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/top_k.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vanilla.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +64,8 @@
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/code" />
+      <recent name="$PROJECT_DIR$/images" />
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>

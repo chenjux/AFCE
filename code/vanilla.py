@@ -1,14 +1,14 @@
-from llm_api_utils import completion
-from dataloader import load_dataset
+from utils.llm_api_utils import completion
+from utils.dataloader import load_dataset, load_datasets
 import pandas as pd
 import re
 import os
 import argparse
 from datetime import datetime
 from tqdm import tqdm
-from dataloader import load_datasets
 
-class TopKDataProcessor:
+
+class VanillaDataProcessor:
     """Processor for Top-k confidence estimation experiments."""
 
     def __init__(self, dataset, model):
@@ -64,16 +64,16 @@ class TopKDataProcessor:
 
     def _generate_prompts(self):
         """Generate prompts for top-k confidence estimation."""
-        instruction = """Provide your k best guesses and confidence scores (0-100%) for the following question. 
-        Use exactly this format:
-        G1: <option letter> 
-        P1: <confidence percentage>
-        ...
-        G4: <option letter>
-        P4: <confidence percentage>
+        prefix = """Read the question, provide your answer and your confidence in this answer. Note: The confidence indicates how likely you think your answer is true.
+        Use the following format to answer:
+        Answer and Confidence (0-100):[ONLY the option letter; not a complete sentence], [Your confidence level, please only include the numerical number in the range of 0-100]%
+        Only the answer and confidence, don’t give me the explanation. 
         Question: """
+        suffix = '''Now, please answer this question and provide the confidence level in this format:
+        Answer: <only Option Letter>
+        Confidence: <only Your confidence(0-100)>'''
 
-        return self._format_quiz_prompts(instruction, "")
+        return self._format_quiz_prompts(prefix, suffix)
 
     def _format_quiz_prompts(self, prefix, suffix):
         """Format complete quiz prompts."""
@@ -97,30 +97,54 @@ class TopKDataProcessor:
 
         return prompts
 
-    def _extract_top_k_response(self, response):
-        """Extract answers and confidences from LLM response."""
-        response = response.strip().rstrip('.')
-        lines = [line.strip() for line in response.splitlines() if line.strip()]
+    def _extract_vanilla_result(self, response):
+        lines = response.split('\n')
+        answer, confidence = None, None
 
-        answers = {}
         for line in lines:
-            if line.startswith(('G', 'P')) and ':' in line:
-                key, value = line.split(':', 1)
-                answers[key.strip()] = value.strip()
+            if line.startswith('Answer:'):
+                answer = line.split(': ', 1)[1].strip()
+            elif line.startswith('Confidence:'):
+                confidence_str = re.search(r'\d+', line.split(': ', 1)[1])
+                confidence = confidence_str.group() if confidence_str else '101'
 
-        primary_answer = answers.get('G1', 'error')
-        primary_confidence = answers.get('P1', '101%').replace('%', '')
+        # Handle edge case where answer and confidence are in a single line
+        if answer is None and confidence is None:
+            match = re.match(r'^([A-Z]),\s*(\d+)%?$', response.strip())
+            if match:
+                answer, confidence = match.groups()
+                confidence = confidence.rstrip('%')  # Remove % if present
 
-        return primary_answer, primary_confidence
+        # Handle case where answer is just a single letter (ignoring any "Question:" line)
+        if answer is None:
+            for line in lines:
+                if not line.startswith('Question:'):
+                    match = re.match(r'^([A-Z])$', line.strip())
+                    if match:
+                        answer = match.group(1)
+                        break
+
+        # Handle case where answer and confidence are in "Answer and Confidence" format
+        if answer is None and confidence is None:
+            match = re.match(r'^Answer and Confidence \(0-100\): ([A-Z]), (\d+)%?$', response.strip())
+            if match:
+                answer, confidence = match.groups()
+                confidence = confidence.rstrip('%')  # Remove % if present
+
+        # Ensure both answer and confidence have values
+        answer = answer if answer is not None else 'N/A'
+        confidence = confidence if confidence is not None else '101'
+
+        return answer, confidence
 
     def _process_dataset(self):
         """Process all quizzes through the LLM."""
-        print(f'Processing dataset using Top-k method with {self.model}...')
+        print(f'Processing dataset using Vanilla method with {self.model}...')
 
         for prompt in tqdm(self._generate_prompts(), desc="Processing quizzes"):
             try:
                 response = completion(prompt, self.model)
-                answer, confidence = self._extract_top_k_response(response)
+                answer, confidence = self._extract_vanilla_result(response)
                 self.llm_answers.append(answer)
                 self.confidences.append(confidence)
 
@@ -151,7 +175,7 @@ class TopKDataProcessor:
 
 def parse_arguments():
     """Parse command line arguments."""
-    parser = argparse.ArgumentParser(description='Run Top-k confidence estimation experiments')
+    parser = argparse.ArgumentParser(description='Run Vanilla confidence estimation experiments')
     parser.add_argument('--datasets', nargs='+', default=['all'],
                         help='Datasets to process (default: all)')
     parser.add_argument('--model', default='gpt-4o',
@@ -159,7 +183,6 @@ def parse_arguments():
     parser.add_argument('--output_dir', default='results',
                         help='Output directory')
     return parser.parse_args()
-
 
 
 def main():
@@ -196,13 +219,13 @@ def main():
             sanitized_name = ds_name.replace(" ", "_")
 
             # Process dataset with TopK method
-            processor = TopKDataProcessor(
+            processor = VanillaDataProcessor(
                 dataset=dataset,
                 model=args.model
             )
 
             # Save individual results
-            filename = f"{sanitized_name}_topk_{args.model}_{timestamp}.csv"
+            filename = f"{sanitized_name}_Vanilla_{args.model}_{timestamp}.csv"
             output_path = os.path.join(args.output_dir, filename)
             processor.dataframe.to_csv(output_path, index=False)
             tqdm.write(f"✓ Successfully saved: {output_path}")
