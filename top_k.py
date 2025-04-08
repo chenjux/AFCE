@@ -6,7 +6,7 @@ import os
 import argparse
 from datetime import datetime
 from tqdm import tqdm
-
+from dataloader import load_datasets
 
 class TopKDataProcessor:
     """Processor for Top-k confidence estimation experiments."""
@@ -160,19 +160,6 @@ def parse_arguments():
                         help='Output directory')
     return parser.parse_args()
 
-def load_datasets():
-    return {
-        "college_physics": load_dataset("college_physics", sample_size=100),
-        "high_school_physics": load_dataset("high_school_physics", sample_size=150),
-        "college_biology": load_dataset("college_biology", sample_size=140),
-        "high_school_biology": load_dataset("high_school_biology", sample_size=310),
-        "college_chemistry": load_dataset("college_chemistry", sample_size=100),
-        "high_school_chemistry": load_dataset("high_school_chemistry", sample_size=200),
-        "gpqa_physics": load_dataset("gpqa_physics", sample_size=180),
-        "gpqa_chemistry": load_dataset("gpqa_chemistry", sample_size=180),
-        "gpqa_biology": load_dataset("gpqa_biology", sample_size=70),
-        "test": load_dataset("college_physics", sample_size=10),
-    }
 
 
 def main():
