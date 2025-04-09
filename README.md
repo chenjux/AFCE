@@ -19,8 +19,9 @@ task is as follows:
 
 ## Click and Run Inference using our methods
 
-We have created a simple click-and-run example for how to use AFCE on MMLU, GPQA, SimpleQA, and NQ-open. The code is in `./AFCE`.
-In order to run our code, you first need to install environment from `./ModelTraining/environment.yml`.
+We have created a simple click-and-run example for how to use AFCE on MMLU, GPQA, SimpleQA, and NQ-open. The code is in `./code`.
+To add and test more data please modify `dataloader.py`. To test different models please modify `llm_api_utils.py`.
+In order to run our code, you first need to install environment from `requirements.txt`.
 For different tasks, the `runscript.sh` file contains instructions to run the experiments:
 
 **Overconfidence**
@@ -61,7 +62,7 @@ DEEP_SEEK_API_KEY = ''
 
 
 
-To run the AFCE method on a dataset (e.g., MMLU) using GPT-4, use the following command:
+To run the AFCE method on a dataset (e.g., MMLU) using GPT-4o, use the following command:
 
 ```bash
 python3 afce/AFCE.py \
