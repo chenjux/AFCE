@@ -15,7 +15,7 @@ from openai import OpenAI
 # Replace with your actual API key
 GROQ_API_KEY = ''
 ANTHROPIC_API_KEY = ''
-OPENAI_API_KEY = 'sk-proj-T4BIYpMygDmr6gxXpWJGT3BlbkFJBUhnITPrFcwCRWqZQ4kk'  # Replace with your actual OpenAI API key
+OPENAI_API_KEY = ''  # Replace with your actual OpenAI API key
 DEEP_SEEK_API_KEY = ''
 
 # Set environment variables
