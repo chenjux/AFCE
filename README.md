@@ -6,7 +6,7 @@ This repository contains the datasets and code for our paper "Do Language Models
 
 ## Datasets
 
-If you just want to explore our experiment dataset. We provide a simple json version of the dataset `./Data`. The format for each 
+If you just want to explore our experiment dataset. We provide a simple csv version of the dataset `./Data`. The format for each 
 task is as follows:
 
 **Multiple Choices Questions**
@@ -19,7 +19,7 @@ task is as follows:
 
 ## Click and Run Inference using our methods
 
-We have created a simple click-and-run example for how to use AFCE on MMLU, GPQA, SimpleQA, and NQ-open. The code is in `./code`.
+We have created several simple examples for how to run our experiments, such as AFCE on MMLU, GPQA, SimpleQA, and NQ-open. The code is in `./code`.
 To add and test more data please modify `dataloader.py`. To test different models please modify `llm_api_utils.py`.
 In order to run our code, you first need to install environment from `requirements.txt`.
 For different tasks, the `run_script.sh` file or use commands(examples attached below) contains instructions to run the experiments:
