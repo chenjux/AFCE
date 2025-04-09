@@ -50,6 +50,17 @@ Install dependencies before running:
 pip install -r requirements.txt
 ```
 
+Fill in API keys into `llm_api_utils.py`
+```
+# Replace with your actual API key
+GROQ_API_KEY = ''
+ANTHROPIC_API_KEY = ''
+OPENAI_API_KEY = ''  
+DEEP_SEEK_API_KEY = ''
+```
+
+
+
 To run the AFCE method on a dataset (e.g., MMLU) using GPT-4, use the following command:
 
 ```bash

@@ -229,7 +229,7 @@ def run_quizlike_pipeline(dataset_name, dataset, output_dir, model, expertise, s
         model=model
     )
     df_answer = processor_answer.dataframe
-    df_answer.to_csv(os.path.join(output_dir, f"{dataset_name}_answer_only.csv"), index=False)
+    # df_answer.to_csv(os.path.join(output_dir, f"{dataset_name}_answer_only.csv"), index=False)
 
     # === Run Estimate-Only ===
     processor_estimate = OverplacementProcessor(
@@ -240,11 +240,11 @@ def run_quizlike_pipeline(dataset_name, dataset, output_dir, model, expertise, s
         model=model
     )
     df_estimate = processor_estimate.dataframe
-    df_estimate.to_csv(os.path.join(output_dir, f"{dataset_name}_estimate_only.csv"), index=False)
+    # df_estimate.to_csv(os.path.join(output_dir, f"{dataset_name}_estimate_only.csv"), index=False)
 
     # === Combine ===
     combined_df = combine_dataframes(df_answer, df_estimate)
-    combined_df.to_csv(os.path.join(output_dir, f"{dataset_name}_combined.csv"), index=False)
+    combined_df.to_csv(os.path.join(output_dir, f"{dataset_name}_overplacement.csv"), index=False)
 
 def main():
     parser = argparse.ArgumentParser()
