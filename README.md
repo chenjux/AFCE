@@ -22,7 +22,7 @@ task is as follows:
 We have created a simple click-and-run example for how to use AFCE on MMLU, GPQA, SimpleQA, and NQ-open. The code is in `./code`.
 To add and test more data please modify `dataloader.py`. To test different models please modify `llm_api_utils.py`.
 In order to run our code, you first need to install environment from `requirements.txt`.
-For different tasks, the `runscript.sh` file contains instructions to run the experiments:
+For different tasks, the `run_script.sh` file or use commands(examples attached below) contains instructions to run the experiments:
 
 **Overconfidence**
 1. AFCE: `AFCE.py`
