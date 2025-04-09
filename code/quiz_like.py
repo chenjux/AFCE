@@ -167,15 +167,12 @@ def parse_arguments():
     return parser.parse_args()
 
 
-
-
 def main():
     args = parse_arguments()
     dataset_map = load_datasets()
     os.makedirs(args.output_dir, exist_ok=True)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M")
 
-    selected_datasets = []
     if 'all' in args.datasets:
         selected_datasets = list(dataset_map.items())
     else:

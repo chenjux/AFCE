@@ -43,4 +43,5 @@ def load_datasets():
         "gpqa_chemistry": load_dataset("gpqa_chemistry", sample_size=180),
         "gpqa_biology": load_dataset("gpqa_biology", sample_size=70),
         "test": load_dataset("college_physics", sample_size=10),
+        "test1": load_dataset("college_biology", sample_size=10),
     }
