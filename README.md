@@ -77,8 +77,8 @@ We thank the anonymous reviewers for their feedback on our paper.
 If you use this code, please cite our paper:
 
 ```
-@inproceedings{...,
+@misc{xu2025llmconfidence,
   title={Do Language Models Mirror Human Confidence? Exploring Psychological Insights to Address Overconfidence in LLMs},
-  author={...},
+  author={Chenjun Xu, Bingbing Wen, Bin HAN, Robert Wolfe, Lucy Lu Wang, Bill Howe},
 }
 ```
