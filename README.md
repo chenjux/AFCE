@@ -65,10 +65,54 @@ DEEP_SEEK_API_KEY = ''
 To run the AFCE method on a dataset (e.g., MMLU) using GPT-4o, use the following command:
 
 ```bash
-python3 afce/AFCE.py \
-  --datasets "college_physics" \
+# 1. AFCE.py
+python3 ./code/AFCE.py \
+  --datasets "test" "test1" \
+  --output_dir "results/" \
+  --model "gpt-4o" \
+  --questions_per_quiz 10
+
+# 2. quiz_like.py
+python3 ./code/quiz_like.py \
+  --datasets "test" \
+  --output_dir "results/" \
+  --model "gpt-4o" \
+  --questions_per_quiz 10
+
+# 3. vanilla.py
+python3 ./code/vanilla.py \
+  --datasets "test" \
   --output_dir "results/" \
   --model "gpt-4o"
+
+# 4. top_k.py
+python3 ./code/top_k.py \
+  --datasets "test" \
+  --output_dir "results/" \
+  --model "gpt-4o"
+
+# 5. sampling.py
+python3 ./code/sampling.py \
+  --datasets "test" \
+  --output_dir "results/" \
+  --model "gpt-4o" \
+  --temperature 0.7 \
+  --num_samples 10
+
+# 6. overplacement.py
+python3 ./code/overplacement.py \
+  --datasets "test" \
+  --output_dir "results/" \
+  --model "gpt-4o"
+
+# 7. demographic.py
+python3 ./code/demographic.py \
+  --datasets "test" \
+  --output_dir "results/" \
+  --model "gpt-4o" \
+  --race "White" \
+  --age "Young adult (18--24)" \
+  --gender "Male"
 ```
 ## Acknowledgement
 We thank the anonymous reviewers for their feedback on our paper.
